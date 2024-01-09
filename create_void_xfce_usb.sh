@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#!/bin/bash
+
 # URL to the Void Linux download page
 DOWNLOAD_PAGE_URL="https://repo-default.voidlinux.org/live/current/"
 
@@ -16,8 +18,19 @@ fi
 
 echo "Latest Void Linux XFCE ISO: $LATEST_ISO_LINK"
 
-# Download the Void Linux ISO
-wget -O "$OUTPUT_ISO" "$ISO_URL"
+# Check if the ISO is already downloaded
+if [ -f "$OUTPUT_ISO" ]; then
+    read -p "The latest ISO is already downloaded. Do you want to redownload it? (y/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Using the existing ISO file."
+    else
+        wget -O "$OUTPUT_ISO" "$ISO_URL"
+    fi
+else
+    # Download the Void Linux ISO
+    wget -O "$OUTPUT_ISO" "$ISO_URL"
+fi
 
 # Download the checksum file
 echo "Downloading the checksum file..."
@@ -25,11 +38,17 @@ CHECKSUM_FILE_URL="${DOWNLOAD_PAGE_URL}sha256sum.txt"
 wget -O "/tmp/sha256sum.txt" "$CHECKSUM_FILE_URL"
 
 # Extract the checksum for the downloaded ISO
-ISO_CHECKSUM=$(grep "$LATEST_ISO_LINK" /tmp/sha256sum.txt | cut -d ' ' -f 1)
+ISO_CHECKSUM=$(grep "$LATEST_ISO_LINK" /tmp/sha256sum.txt | awk -F ' = ' '{print $2}')
+
+# Print the checksum from the sha256sum.txt file
+echo "Checksum from sha256sum.txt: $ISO_CHECKSUM"
 
 # Verify the ISO checksum
 echo "Verifying the ISO checksum..."
 CALCULATED_CHECKSUM=$(sha256sum "$OUTPUT_ISO" | awk '{ print $1 }')
+
+# Print the calculated checksum
+echo "Calculated checksum of the downloaded ISO: $CALCULATED_CHECKSUM"
 
 if [ "$ISO_CHECKSUM" != "$CALCULATED_CHECKSUM" ]; then
     echo "Checksum verification failed. The ISO file may be corrupted. Exiting."

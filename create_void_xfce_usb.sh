@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 # URL to the Void Linux download page
 DOWNLOAD_PAGE_URL="https://repo-default.voidlinux.org/live/current/"
 

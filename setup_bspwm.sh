@@ -5,8 +5,8 @@
 sudo xbps-install -y bspwm sxhkd
 
 # Create configuration directories
-mkdir -p ~/.config/bspwm
-mkdir -p ~/.config/sxhkd
+# mkdir -p ~/.config/bspwm
+# mkdir -p ~/.config/sxhkd
 
 # Copy default configurations
 cp -r assets/bspwm ~/.config/bspwm/

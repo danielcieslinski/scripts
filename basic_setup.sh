@@ -35,14 +35,12 @@ echo "Installing python..."
 sudo xbps-install -y python python3
 check_success "Package installation"
 
-
 echo "Installing htop..."
 sudo xbps-install -y htop
 check_success "Package installation"
 
-
 # Install necessary packages
-echo "Installing Kitty, Ranger,Vim, Git and Fish-shell..."
+echo "Installing Alacritty, Ranger,Vim, Git and Fish-shell..."
 sudo xbps-install -y alacritty ranger vim git fish-shell
 check_success "Package installation"
 
@@ -70,6 +68,10 @@ if ! grep -q "# Script-Added Config Start" "$FISH_CONFIG"; then
         echo "end"
         echo "alias q='sudo xbps-query -Rs'"
         echo "alias i='sudo xbps-install'"
+        echo "alias gs='git status'"
+        echo "alias ga='git add'"
+        echo "alias gcm='git commit -m'"
+        echo "alias gp='git push'"
         echo "fish_vi_key_bindings"
         echo "# Script-Added Config End"
     } >> "$FISH_CONFIG"

@@ -22,8 +22,8 @@ mkdir -p ~/.config/bspwm || { echo "Failed to create bspwm config directory"; ex
 mkdir -p ~/.config/sxhkd || { echo "Failed to create sxhkd config directory"; exit 1; }
 
 # Copy new configurations
-cp -r assets/bspwm ~/.config/bspwm/
-cp -r assets/sxhkd/ ~/.config/sxhkd/
+cp assets/bspwm/bspwmrc ~/.config/bspwm/
+cp assets/sxhkd/sxhkdrc ~/.config/sxhkd/
 
 # Make the bspwm config file executable
 chmod +x ~/.config/bspwm/bspwmrc
@@ -36,4 +36,3 @@ append_if_not_exist "$BSPWMRC" "wireplumber &"
 
 echo "Installation and configuration complete. Please restart your X session to apply changes."
 echo "Note: If you don't use display manager, make sure to put this setup in .xinitrc rather then bspwmrc and remember then to add exec bspwm in the end"
-

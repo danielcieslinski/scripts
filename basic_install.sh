@@ -31,6 +31,10 @@ else
     echo -e "${GREEN}Skipping full system update.${NC}"
 fi
 
+echo "Installing python..."
+sudo xbps-install -y python python3
+
+
 # Install necessary packages
 echo "Installing Kitty, Ranger,Vim, Git and Fish-shell..."
 sudo xbps-install -y alacritty ranger vim git fish-shell

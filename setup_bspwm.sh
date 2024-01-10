@@ -37,10 +37,11 @@ chmod +x ~/.config/bspwm/bspwmrc
 
 # Append to .xinitrc with checks
 XINITRC="$HOME/.xinitrc"
-append_if_not_exist "$XINITRC" "exec bspwm"
 append_if_not_exist "$XINITRC" "setxkbmap -option caps:swapescape &"
 append_if_not_exist "$XINITRC" "polybar &"
 append_if_not_exist "$XINITRC" "wireplumber &"
+append_if_not_exist "$XINITRC" "exec bspwm"
+
 
 
 echo "Installation and configuration complete. Please restart your X session to apply changes."

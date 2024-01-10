@@ -7,20 +7,13 @@ append_if_not_exist() {
     grep -qxF "$line" "$file" || echo "$line" >> "$file"
 }
 
-# Check for root privileges
-# if [ "$(id -u)" != "0" ]; then
-#    echo "Please run this script with sudo to ensure proper permissions."
-#    exit 1
-# fi
-
 # Update system and install required packages
-# sudo xbps-install -Syu
 sudo xbps-install -y bspwm sxhkd xcape rofi polybar
 
 # Backup and copy configurations if directories exist and are not empty
-for ddir in bspwm sxhkd; do
-    if [ -d "$HOME/.config/$ddir" ] && [ "$(ls -A $HOME/.config/$ddir)" ]; then
-        cp -r "$HOME/.config/$ddir" "$HOME/.config/${ddir}.backup" || { echo "Failed to backup $ddir config directory"; exit 1; }
+for dir in bspwm sxhkd; do
+    if [ -d "$HOME/.config/$dir" ] && [ "$(ls -A $HOME/.config/$dir)" ]; then
+        cp -r "$HOME/.config/$dir" "$HOME/.config/${dir}.backup" || { echo "Failed to backup $dir config directory"; exit 1; }
     fi
 done
 
@@ -35,14 +28,12 @@ cp -r assets/sxhkd/ ~/.config/sxhkd/
 # Make the bspwm config file executable
 chmod +x ~/.config/bspwm/bspwmrc
 
-# Append to .xinitrc with checks
-XINITRC="$HOME/.xinitrc"
-append_if_not_exist "$XINITRC" "setxkbmap -option caps:swapescape &"
-append_if_not_exist "$XINITRC" "polybar &"
-append_if_not_exist "$XINITRC" "wireplumber &"
-append_if_not_exist "$XINITRC" "exec bspwm"
-
-
+# Append commands to bspwmrc
+BSPWMRC="$HOME/.config/bspwm/bspwmrc"
+append_if_not_exist "$BSPWMRC" "setxkbmap -option caps:swapescape &"
+append_if_not_exist "$BSPWMRC" "polybar &"
+append_if_not_exist "$BSPWMRC" "wireplumber &"
 
 echo "Installation and configuration complete. Please restart your X session to apply changes."
-echo "Note: If you experience audio issues after reloading, you may need to adjust wireplumber settings."
+echo "Note: If you don't use display manager, make sure to put this setup in .xinitrc rather then bspwmrc and remember then to add exec bspwm in the end"
+

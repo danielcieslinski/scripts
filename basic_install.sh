@@ -33,6 +33,12 @@ fi
 
 echo "Installing python..."
 sudo xbps-install -y python python3
+check_success "Package installation"
+
+
+echo "Installing htop..."
+sudo xbps-install -y htop
+check_success "Package installation"
 
 
 # Install necessary packages

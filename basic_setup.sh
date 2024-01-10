@@ -41,7 +41,7 @@ check_success "Package installation"
 
 # Install necessary packages
 echo "Installing Alacritty, Ranger,Vim, Git and Fish-shell..."
-sudo xbps-install -y alacritty ranger vim git fish-shell
+sudo xbps-install -y kitty ranger vim git fish-shell
 check_success "Package installation"
 
 # Set fish as the default shell

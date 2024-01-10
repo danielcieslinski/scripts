@@ -9,8 +9,8 @@ mkdir -p ~/.config/bspwm
 mkdir -p ~/.config/sxhkd
 
 # Copy default configurations
-cp /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/
-cp assets/sxhkdrc ~/.config/sxhkd/
+cp -r assets/bspwm ~/.config/bspwm/
+cp -r assets/sxhkd/ ~/.config/sxhkd/
 
 # Make the bspwm config file executable
 chmod +x ~/.config/bspwm/bspwmrc
